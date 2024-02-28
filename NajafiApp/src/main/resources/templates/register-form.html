@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+        href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+        integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+      <h1> Add Course </h1>
+      <hr>
+
+      <form th:action="@{/NajaFi/add-course}" method="post" th:object="${course}" >
+
+        <input type="hidden" th:field="*{id}"/>
+
+        <input type="text" th:field="*{courseName}" class="mb-4 col-4" placeholder="Title" /><br>
+        <input type="text" th:field="*{courseDescription}" class="col-4 mb-4" placeholder="Description" /><br>
+        <input type="text" th:field="*{courseDuration}" class="col-4 mb-4" placeholder="Duration" /><br>
+        <input type="text" th:field="*{courseFees}" class="col-4 mb-4" placeholder="Fees" /><br>
+
+        <button type="submit" class="btn btn-info col-2"> Save </button>
+
+      </form>
+    </div>
+</body>
+</html>

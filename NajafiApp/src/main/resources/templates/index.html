@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>NajaFi Code</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet"
+          href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+          integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+          crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1 class="text-center">NajaFi Code</h1>
+        <hr>
+
+        <a th:href="@{/NajaFi/showForm}" class="btn btn-primary btn-sm mb-3 text-white"> Add Course </a>
+        <p th:text="${message}"></p>
+
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Course Name</th>
+                    <th>Description</th>
+                    <th>Duration</th>
+                    <th>Fees</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="course : ${courses}">
+                    <td th:text="${course.courseName}"></td>
+                    <td th:text="${course.courseDescription}"></td>
+                    <td th:text="${course.courseDuration}"></td>
+                    <td th:text="${course.courseFees}"></td>
+                    <td>
+                        <div class="row">
+                            <div class="col-small">
+                                <!-- Add update button -->
+                                <form th:action="@{/NajaFi/update}">
+                                    <input type="hidden" name="id" th:value="${course.id}"/>
+                                    <button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Update</button>
+                                </form>
+                            </div>
+
+                            <div class="col-small">
+                                <!-- Add delete button -->
+                                <form th:action="@{/NajaFi/delete}">
+                                    <input type="hidden" name="id" th:value="${course.id}"/>
+                                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+</body>
+</html>
