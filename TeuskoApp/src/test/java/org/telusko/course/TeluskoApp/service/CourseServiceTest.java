@@ -56,8 +56,14 @@ class CourseServiceTest {
         String courseName = "Java";
         when(repo.findByCourseName(courseName))
                 .thenReturn(Optional.of(course));
-
         assertEquals(course, courseService.getByCourseName(courseName));
+    }
+
+    @Test
+    void getCourseByNameNotFound(){
+        String courseName = "Python";
+        when(repo.findByCourseName(courseName)).thenThrow(new CourseNotFoundException("Course not found"));
+        assertThrows(CourseNotFoundException.class, () -> courseService.getByCourseName(courseName));
     }
 
     @Test
