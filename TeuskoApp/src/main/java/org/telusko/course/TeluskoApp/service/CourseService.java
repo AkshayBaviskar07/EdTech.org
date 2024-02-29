@@ -16,19 +16,19 @@ public class CourseService {
     @Autowired
     private CourseRepo repo;
 
-    public ResponseEntity<List<Course>> getAllCourses() {
+    public List<Course> getAllCourses() {
         List<Course> courses = repo.findAll();
 
         if(courses.isEmpty()){
             throw new CourseNotFoundException("Course not found");
         } else {
-            return new ResponseEntity<>(courses, HttpStatus.OK);
+            return courses;
         }
     }
 
-    public ResponseEntity<String> addCourse(Course course) {
+    public String addCourse(Course course) {
         repo.save(course);
-        return new ResponseEntity<>("Course added successfully", HttpStatus.OK);
+        return "Course added successfully";
     }
 
     public Course getCourseById(Integer id) {

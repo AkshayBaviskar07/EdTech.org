@@ -18,12 +18,12 @@ public class CourseController {
 
     @GetMapping("all")
     public ResponseEntity<List<Course>> getAllCourses(){
-        return service.getAllCourses();
+        return new ResponseEntity<>(service.getAllCourses(), HttpStatus.OK);
     }
 
     @PostMapping("add")
     public ResponseEntity<String> addCourse(@RequestBody Course course){
-        return service.addCourse(course);
+        return new ResponseEntity<>(service.addCourse(course), HttpStatus.OK);
     }
 
     @GetMapping("id/{id}")
