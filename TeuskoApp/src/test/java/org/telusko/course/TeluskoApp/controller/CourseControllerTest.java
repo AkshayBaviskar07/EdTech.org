@@ -12,6 +12,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.telusko.course.TeluskoApp.model.Course;
 import org.telusko.course.TeluskoApp.service.CourseService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.hasSize;
@@ -30,7 +31,6 @@ class CourseControllerTest {
     private CourseService courseService;
     Course course1 = null;
     Course course2 = null;
-
 
     @BeforeEach
     void setUp() {
