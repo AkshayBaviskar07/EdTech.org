@@ -21,16 +21,16 @@ public class CourseService {
 
 
     /**
-     * Retrieves all courses from the web client.
+     * Retrieves all courses from the rest template..
      * @return a list of courses
      */
     public List<Course> getAllCourse() {
-        WebClient webClient = WebClient.create();   // Create a web client
-        return webClient.get()    // Perform a GET request
-                .uri(GET_ALL_COURSE)    // set the URI for the request
-                .retrieve()     //Retrieve the response
-                .bodyToMono(new ParameterizedTypeReference<List<Course>>() {})  // Convert the response to list of courses
-                .block();   // block and retrieve the result
+       RestTemplate restTemplate = new RestTemplate();
+       return restTemplate.exchange(
+               GET_ALL_COURSE,
+               HttpMethod.GET,
+               null,
+               new ParameterizedTypeReference<List<Course>>() {}).getBody();
     }
 
     /**
@@ -39,37 +39,31 @@ public class CourseService {
      * @return the response from the server as a string
      */
     public String addCourse(Course course) {
-        WebClient webClient = WebClient.create();
-        return webClient.post()
-                .uri(ADD_COURSE)
-                .header("Content-Type", "application/json")
-                .bodyValue(course)
-                .retrieve()
-                .bodyToMono(String.class)
-                .block();
+        RestTemplate restTemplate = new RestTemplate();
+        return restTemplate.postForEntity(ADD_COURSE,
+                course,
+                String.class).getBody();
     }
 
     /*
-    * Retrieves a course by id from web client
+    * Retrieves a course by id from rest template
     * @param id is used get course by its id
-    * @return a Course fetched using web client
+    * @return a Course fetched using rest template
     * */
     public Course getCourseById(Integer id) {
-       WebClient webClient = WebClient.create();
-       return webClient.get()
-               .uri(GET_COURSE_BY_ID, id)
-               .retrieve()
-               .bodyToMono(Course.class)
-               .block();
+        RestTemplate restTemplate = new RestTemplate();
+        return  restTemplate.getForEntity(GET_COURSE_BY_ID,
+                Course.class,
+                id).getBody();
     }
 
 
     public String deleteCourse(Integer id) {
-      return WebClient.create()
-               .delete()
-               .uri(DELETE_COURSE, id)
-               .retrieve()
-               .bodyToMono(String.class)
-               .block();
+      RestTemplate restTemplate = new RestTemplate();
+      return  restTemplate.exchange(DELETE_COURSE,
+              HttpMethod.DELETE,
+              null,
+              String.class,
+              id).getBody();
     }
 }
